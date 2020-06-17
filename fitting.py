@@ -5,7 +5,7 @@ import time
 
 r_min = 1
 r_max = 5
-m_min = 2
+m_min = -5
 m_max = 5
 a_min = 1
 a_max = 3
@@ -22,15 +22,14 @@ def gen_data(type, N=1000):
         b = np.random.uniform(b_min, b_max)
         x = np.random.randn(N) 
         y = m * x + b
-        noise = np.random.rand(N, 2) 
+        noise = 2 * np.random.rand(N, 2) - 1 # zero centered noise 
         data = np.stack((x, y), axis=1) + noise
-
         return data, m, b
 
     elif type == 'circular':
         r = np.random.uniform(r_min, r_max)
         phi = np.random.randn(N) * 2 * np.pi
-        noise = np.random.rand(N) * 0.5
+        noise = 2 * np.random.rand(N) - 1
         x = (r * np.ones(N) + noise) * np.cos(phi) # elementwise multiply
         y = (r * np.ones(N) + noise) * np.sin(phi)
         data = np.stack((x, y), axis=1)
